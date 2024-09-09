@@ -1,25 +1,23 @@
-import { Component } from "react";
-import React, { View, Text } from "react-native";
+const { View, Text } = require("react-native")
 
-class Index extends Component {
-  render() {
+const Index = () => {
+    let name = 'Hyunseung';
+    const age = 40;
+
     return (
         <View style={{
-            flex: 0.3, 
-            fontSize: 40,
-            backgroundColor: 'green',
-            alignItems: 'center',
+            flex: 1,
             justifyContent: 'center',
-             }}
-             >
-            
+            alignItems: 'center',
+            backgroundColor: 'lightblue',
+        }}>
             <Text style={{
-                color: 'white',
-                fontSize: 40,
-            }}>Hello world</Text>
+                fontSize: 24,
+                fontWeight: 'bold',
+                color: 'darkblue',
+            }}>Hello, {name}! {age} years old.</Text>
         </View>
     );
-  }
 }
 
 export default Index;
