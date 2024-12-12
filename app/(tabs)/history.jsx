@@ -137,6 +137,7 @@ const History = () => {
             style={{
               justifyContent: "center",
               alignItems: "center",
+
             }}
           >
             <Text
@@ -159,7 +160,7 @@ const History = () => {
               }}
               width={400}
               height={400}
-              padding={{ left: 80, right: 80, top: 40, bottom: 40 }}
+              padding={{ left: 100, right: 100, top: 40, bottom: 40 }}
               innerRadius={60}
               theme={VictoryTheme.clean}
             />
