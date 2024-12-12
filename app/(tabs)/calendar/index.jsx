@@ -4,7 +4,6 @@ import { View, Text, ScrollView, Pressable } from 'react-native'
 import React, { useState } from 'react'
 import { PlusIcon } from 'react-native-heroicons/solid'
 import { router } from 'expo-router/build'
-import tw from 'twrnc'
 
 const calendar = () => {
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
@@ -30,9 +29,9 @@ const calendar = () => {
 
 
     return (
-        <View style={tw`flex-1`}>
+        <View className="flex-1">
             <View>
-                <Text style={tw`text-center font-bold pt-5 text-xl border-b border-gray-600`}>Calendar View</Text>
+                <Text className="text-center font-bold pt-5 text-xl border-b border-gray-600">Calendar View</Text>
             </View>
 
             {/* The calendar */}
@@ -40,12 +39,12 @@ const calendar = () => {
                 <View>
 
                     {/* Header row */}
-                    <View style={tw`border-b border-gray-200 flex-row`}>
-                        <View style={tw`bg-gray-300 border-r border-gray-200 w-14`}></View>
+                    <View className="border-b border-gray-200 flex-row">
+                        <View className="bg-gray-300 border-r border-gray-200 w-14"></View>
                         {
                             days.map((day, index) => (
-                                <View key={index} style={tw`border-r border-gray-200 min-w-20 pt-2`}>
-                                    <Text style={tw`text-center font-bold`}>{day}</Text>
+                                <View key={index} className="border-r border-gray-200 min-w-20 pt-2">
+                                    <Text className="text-center font-bold">{day}</Text>
                                 </View>
                             ))
                         }
@@ -56,17 +55,17 @@ const calendar = () => {
 
                         {
                             hours.map((hour, index) => (
-                                <View style={tw`border-b border-gray-200 flex-row`} key={index}>
+                                <View className="border-b border-gray-200 flex-row" key={index}>
                                     {/* Stores the hour of the day */}
-                                    <View style={tw`bg-gray-300 border-r border-gray-200 w-14 p-3`}>
-                                        <Text style={tw`text-center text-xs`} >{hour}</Text>
+                                    <View className="bg-gray-300 border-r border-gray-200 w-14 p-3">
+                                        <Text className="text-center text-xs" >{hour}</Text>
                                     </View>
 
 
                                     {/* map out the days, giving the full table. */}
                                     {
                                         days.map((_, dayIndex) => (
-                                            <View style={tw`border-r border-gray-200 min-w-20`} key={dayIndex} ></View>
+                                            <View className="border-r border-gray-200 min-w-20" key={dayIndex} ></View>
                                         ))
                                     }
                                 </View>
@@ -80,8 +79,8 @@ const calendar = () => {
             
             {
                 showAddBtn &&
-                <Pressable style={tw`absolute bottom-5 right-5 bg-white border rounded-full`} onPress={() => router.push("/calendar/add-new")}>
-                    <PlusIcon style={tw`size-10`}/>
+                <Pressable className="absolute bottom-5 right-5 bg-white border rounded-full" onPress={() => router.push("/calendar/add-new")}>
+                    <PlusIcon className="size-10"/>
                 </Pressable>
             }
 
