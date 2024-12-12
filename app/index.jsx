@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet, Image } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet, Image, Pressable } from "react-native";
 import { Link, useNavigation } from "expo-router";
+import { useRouter } from "expo-router";
 
 const Index = () => {
-  const navigation = useNavigation();
-
-  useEffect(() => {
-    navigation.setOptions({ headerShown: false });
-  }, [navigation]);
 
   const [activeAvatar, setActiveAvatar] = useState("avatar1");
   const [userName, setUserName] = useState("");
@@ -18,53 +14,51 @@ const Index = () => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.section}>
+    <View style={styles.section}>
         <Text style={styles.title}>MyStudyLife</Text>
         <Text style={styles.subtitle}>Select your profile</Text>
 
         {/* Name Input Section */}
         <View style={styles.inputContainer}>
-          <Text style={styles.inputLabel}>Name</Text>
-          <TextInput
+        <Text style={styles.inputLabel}>Name</Text>
+        <TextInput
             style={styles.input}
             placeholder="Type your name here"
             value={userName}
             onChangeText={setUserName}
-          />
+        />
         </View>
 
         {/* Avatar Selection Section */}
         <View style={styles.avatarContainer}>
-          <Text style={styles.avatarLabel}>Choose Avatar</Text>
-          <View style={styles.avatarList}>
+        <Text style={styles.avatarLabel}>Choose Avatar</Text>
+        <View style={styles.avatarList}>
             {["avatar1", "avatar2", "avatar3", "avatar4"].map((id, index) => (
-              <TouchableOpacity key={id} onPress={() => selectAvatar(id)} style={styles.avatarWrapper}>
+            <TouchableOpacity key={id} onPress={() => selectAvatar(id)} style={styles.avatarWrapper}>
                 <Image
-                  style={[
+                style={[
                     styles.avatar,
                     activeAvatar === id && styles.activeAvatar
-                  ]}
-                  source={{
+                ]}
+                source={{
                     uri: [
-                      "https://plus.unsplash.com/premium_photo-1731404830883-67fffdba8339?w=500&auto=format&fit=crop&q=60",
-                      "https://images.unsplash.com/photo-1615946027884-5b6623222bf4?w=500&auto=format&fit=crop&q=60",
-                      "https://plus.unsplash.com/premium_photo-1732333561909-a1643049dd4a?w=500&auto=format&fit=crop&q=60",
-                      "https://images.unsplash.com/photo-1558624232-75ee22af7e67?w=500&auto=format&fit=crop&q=60",
+                    "https://plus.unsplash.com/premium_photo-1731404830883-67fffdba8339?w=500&auto=format&fit=crop&q=60",
+                    "https://images.unsplash.com/photo-1615946027884-5b6623222bf4?w=500&auto=format&fit=crop&q=60",
+                    "https://plus.unsplash.com/premium_photo-1732333561909-a1643049dd4a?w=500&auto=format&fit=crop&q=60",
+                    "https://images.unsplash.com/photo-1558624232-75ee22af7e67?w=500&auto=format&fit=crop&q=60",
                     ][index],
-                  }}
+                }}
                 />
-              </TouchableOpacity>
+            </TouchableOpacity>
             ))}
-          </View>
+        </View>
         </View>
 
         {/* Navigation Button */}
-        <Link href={{ pathname: "(tabs)" }} asChild>
-          <TouchableOpacity style={styles.button}>
+        <Link style={styles.button} href={'/(tabs)'}>
             <Text style={styles.buttonText}>Let's Get Started</Text>
-          </TouchableOpacity>
         </Link>
-      </View>
+    </View>
     </ScrollView>
   );
 };
