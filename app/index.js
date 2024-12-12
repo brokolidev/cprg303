@@ -1,13 +1,54 @@
 import {Text, View} from "react-native";
+import {useState} from "react";
 
 const Index = () => {
+
+	const [activeAvatar1, setActiveAvatar1] = useState(true);
+	const [activeAvatar2, setActiveAvatar2] = useState(false);
+	const [activeAvatar3, setActiveAvatar3] = useState(false);
+	const [activeAvatar4, setActiveAvatar4] = useState(false);
+
+	const [userName, setUserName] = useState("");
+
+	function gotoDashboard() {
+		if (userName === "") {
+			alert('Please enter a name');
+		}
+
+
+	}
+
+	function selectAvatar(e) {
+		const id = e.currentTarget.id;
+
+		setActiveAvatar1(false);
+		setActiveAvatar2(false);
+		setActiveAvatar3(false);
+		setActiveAvatar4(false);
+
+		switch (id) {
+			case 'avatar1':
+				setActiveAvatar1(true);
+				break;
+			case 'avatar2':
+				setActiveAvatar2(true);
+				break;
+			case 'avatar3':
+				setActiveAvatar3(true);
+				break;
+			case 'avatar4':
+				setActiveAvatar4(true);
+				break;
+		}
+	}
+
 	return (
 		<View>
 			<div className="bg-gray-50 py-24 sm:py-32">
 				<div className="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
-					<h2 className="text-center text-base/7 font-semibold text-indigo-600">MyStudyLife</h2>
-					<p className="mx-auto mt-2 max-w-lg text-balance text-center text-4xl font-semibold tracking-tight text-gray-950 sm:text-5xl">Select
-						your profile to start</p>
+					<h1 className="text-center font-semibold text-indigo-600">MyStudyLife</h1>
+					<p className="mx-auto mt-2 max-w-lg text-balance text-center text-4xl font-semibold tracking-tight text-gray-950 sm:text-5xl">
+						Select your profile</p>
 					<div className="mt-10 grid gap-4 sm:mt-16 lg:grid-cols-3 lg:grid-rows-2">
 
 						<div className="bg-white py-8 sm:py-32 rounded-lg">
@@ -26,32 +67,41 @@ const Index = () => {
 								</div>
 								<ul role="list"
 								    className="mx-auto mt-4 grid max-w-2xl grid-cols-2 gap-x-8 gap-y-8 text-center sm:grid-cols-3 md:grid-cols-4 lg:mx-0 lg:max-w-none lg:grid-cols-5 xl:grid-cols-6">
-									<li>
-										<img className="mx-auto size-24 rounded-full border-4 border-indigo-500/100"
-										     src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
-										     alt=""/>
+									<li onClick={selectAvatar} id="avatar1">
+										<img
+											className={`mx-auto size-24 rounded-full ${activeAvatar1 ? 'border-4 border-indigo-500/100' : ''}`}
+											src="https://plus.unsplash.com/premium_photo-1731404830883-67fffdba8339?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YXZhdGFyJTIwY2hhcmFjdGVyfGVufDB8fDB8fHww"
+											alt=""/>
 									</li>
-									<li>
-										<img className="mx-auto size-24 rounded-full"
-										     src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
-										     alt=""/>
+									<li onClick={selectAvatar} id="avatar2">
+										<img
+											className={`mx-auto size-24 rounded-full ${activeAvatar2 ? 'border-4 border-indigo-500/100' : ''}`}
+											src="https://images.unsplash.com/photo-1615946027884-5b6623222bf4?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGF2YXRhciUyMGNoYXJhY3RlcnxlbnwwfHwwfHx8MA%3D%3D"
+											alt=""/>
 									</li>
-									<li>
-										<img className="mx-auto size-24 rounded-full"
-										     src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
-										     alt=""/>
+									<li onClick={selectAvatar} id="avatar3">
+										<img
+											className={`mx-auto size-24 rounded-full ${activeAvatar3 ? 'border-4 border-indigo-500/100' : ''}`}
+											src="https://plus.unsplash.com/premium_photo-1732333561909-a1643049dd4a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjV8fGF2YXRhciUyMGNoYXJhY3RlcnxlbnwwfHwwfHx8MA%3D%3D"
+											alt=""/>
 									</li>
-									<li>
-										<img className="mx-auto size-24 rounded-full"
-										     src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
-										     alt=""/>
+									<li onClick={selectAvatar} id="avatar4">
+										<img
+											className={`mx-auto size-24 rounded-full ${activeAvatar4 ? 'border-4 border-indigo-500/100' : ''}`}
+											src="https://images.unsplash.com/photo-1558624232-75ee22af7e67?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NjJ8fGF2YXRhciUyMGNoYXJhY3RlcnxlbnwwfHwwfHx8MA%3D%3D"
+											alt=""/>
 									</li>
 								</ul>
 							</div>
 						</div>
 
-						<a className="inline-flex justify-center rounded-2xl bg-blue-600 p-4 text-base font-semibold text-white hover:bg-blue-500 focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 active:text-white/70 mt-10 w-full sm:hidden"
-						   href="./dashboard.html">Let's get started</a>
+						<button className="inline-flex justify-center rounded-2xl bg-blue-600 p-4 text-base font-semibold
+							text-white hover:bg-blue-500 focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2
+							focus-visible:outline-blue-500 active:text-white/70 mt-10 w-full sm:hidden"
+						        onClick={gotoDashboard}
+						>
+							Let's get started
+						</button>
 					</div>
 				</div>
 			</div>
