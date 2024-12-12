@@ -1,25 +1,48 @@
-import FontAwesome from '@expo/vector-icons/FontAwesome';
+import * as Icons from "react-native-heroicons/solid";
 import {Tabs} from 'expo-router';
 
 export default function TabLayout() {
 	return (
 		<Tabs screenOptions={{
 			tabBarActiveTintColor: 'blue',
-			headerShown          : false
-
+			headerShown          : false,
+			tabBarLabelStyle     : {
+				fontSize: 12,
+				padding : 5
+			},
+			tabBarStyle          : {
+				paddingTop: 8,
+				minHeight : 60
+			}
 		}}>
 			<Tabs.Screen
 				name="index"
 				options={{
-					title     : 'Dashboard',
-					tabBarIcon: ({color}) => <FontAwesome size={28} name="index" color={color}/>
+					title     : 'Home',
+					tabBarIcon: ({color}) => <Icons.HomeIcon size={28} name="index" color={color}/>
+				}}
+				styles={{padding: 20}}
+			/>
+			<Tabs.Screen
+				name="history"
+				options={{
+					title     : 'History',
+					tabBarIcon: ({color}) => <Icons.DocumentTextIcon size={28} name="history" color={color}/>
+				}}
+			/>
+			<Tabs.Screen
+				name="timer"
+				options={{
+					title     : 'Timer',
+					tabBarIcon: ({color}) => <Icons.ClockIcon size={28} name="timer" color={color}/>
 				}}
 			/>
 			<Tabs.Screen
 				name="settings"
+
 				options={{
 					title     : 'Settings',
-					tabBarIcon: ({color}) => <FontAwesome size={28} name="cog" color={color}/>
+					tabBarIcon: ({color}) => <Icons.Cog8ToothIcon size={28} name="index" color={color}/>
 				}}
 			/>
 		</Tabs>
