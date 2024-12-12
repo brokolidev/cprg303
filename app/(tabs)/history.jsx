@@ -9,7 +9,7 @@ import {
 } from "react-native";
 
 export default function History() {
-  const [timeRange, setTimeRange] = useState("Today"); 
+  const [timeRange, setTimeRange] = useState("Today");
 
   return (
     <ScrollView style={styles.container}>
@@ -24,14 +24,14 @@ export default function History() {
               key={range}
               style={[
                 styles.tab,
-                timeRange === range && styles.activeTab, 
+                timeRange === range && styles.activeTab,
               ]}
-              onPress={() => setTimeRange(range)} 
+              onPress={() => setTimeRange(range)}
             >
               <Text
                 style={[
                   styles.tabText,
-                  timeRange === range && styles.activeTabText, 
+                  timeRange === range && styles.activeTabText,
                 ]}
               >
                 {range}
@@ -75,13 +75,14 @@ export default function History() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f9fafb",
+    backgroundColor: "linear-gradient(to top, #f3f4f6, #ffffff)", 
   },
   header: {
-    fontSize: 24,
-    fontWeight: "bold",
+    fontSize: 25,
+    fontWeight: "500",
     textAlign: "center",
     marginVertical: 20,
+    letterSpacing: 0.5,
   },
   tabContainer: {
     flexDirection: "row",
@@ -108,8 +109,8 @@ const styles = StyleSheet.create({
   progressContainer: {
     flexDirection: "row",
     justifyContent: "space-around",
-    marginBottom: 50,
-	marginVertical: 30,
+    marginVertical: 30,
+	marginHorizontal: 10,
   },
   progressCard: {
     width: 100,
@@ -128,21 +129,24 @@ const styles = StyleSheet.create({
     color: "#6b7280",
   },
   infoContainer: {
-    backgroundColor: "#f3f4f6",
+    backgroundColor: "#ffffff",
+    borderRadius: 24,
     padding: 20,
-    borderRadius: 10,
+    shadowColor: "rgba(0, 0, 0, 0.1)",
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
     marginHorizontal: 20,
     marginBottom: 20,
     alignItems: "center",
   },
   infoTitle: {
     fontSize: 18,
-    fontWeight: "bold",
+    fontWeight: "500",
     marginBottom: 10,
   },
   infoText: {
-    fontSize: 16,
+    fontSize: 14,
     color: "#374151",
-	marginBottom:20,
+    marginBottom: 20,
   },
 });
