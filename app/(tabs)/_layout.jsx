@@ -38,11 +38,11 @@ export default function TabLayout() {
 				}}
 			/>
 			<Tabs.Screen
-				name="settings"
+				name="calendar"
 
 				options={{
-					title     : 'Settings',
-					tabBarIcon: ({color}) => <Icons.Cog8ToothIcon size={28} name="index" color={color}/>
+					title     : 'Calendar',
+					tabBarIcon: ({color}) => <Icons.CalendarIcon size={28} name="calendar" color={color}/>
 				}}
 			/>
 		</Tabs>
