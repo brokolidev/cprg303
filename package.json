@@ -29,6 +29,7 @@
     "react-native-screens": "3.31.1",
     "react-native-svg": "^15.10.1",
     "react-native-web": "~0.19.10",
+    "twrnc": "^4.6.0",
     "victory-native": "^37.3.4"
   },
   "devDependencies": {
