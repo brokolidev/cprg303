@@ -1,7 +1,13 @@
-import {Text, View} from "react-native";
-import {useState} from "react";
+import {View} from "react-native";
+import {useEffect, useState} from "react";
+import {Link, useNavigation} from "expo-router";
 
 const Index = () => {
+	const navigation = useNavigation();
+
+	useEffect(() => {
+		navigation.setOptions({headerShown: false});
+	}, [navigation]);
 
 	const [activeAvatar1, setActiveAvatar1] = useState(true);
 	const [activeAvatar2, setActiveAvatar2] = useState(false);
@@ -9,14 +15,6 @@ const Index = () => {
 	const [activeAvatar4, setActiveAvatar4] = useState(false);
 
 	const [userName, setUserName] = useState("");
-
-	function gotoDashboard() {
-		if (userName === "") {
-			alert('Please enter a name');
-		}
-
-
-	}
 
 	function selectAvatar(e) {
 		const id = e.currentTarget.id;
@@ -95,13 +93,12 @@ const Index = () => {
 							</div>
 						</div>
 
-						<button className="inline-flex justify-center rounded-2xl bg-blue-600 p-4 text-base font-semibold
+						<Link href={{pathname: '(tabs)'}}
+						      className="inline-flex justify-center rounded-2xl bg-blue-600 p-4 text-base font-semibold
 							text-white hover:bg-blue-500 focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2
-							focus-visible:outline-blue-500 active:text-white/70 mt-10 w-full sm:hidden"
-						        onClick={gotoDashboard}
-						>
+							focus-visible:outline-blue-500 active:text-white/70 mt-10 w-full sm:hidden">
 							Let's get started
-						</button>
+						</Link>
 					</div>
 				</div>
 			</div>
@@ -110,12 +107,4 @@ const Index = () => {
 };
 
 export default Index;
-
-const Custom_text = () => {
-	return (
-		<View>
-			<Text style={{fontSize: 25, backgroundColor: "green"}}>This is a child component</Text>
-		</View>
-	);
-};
 
