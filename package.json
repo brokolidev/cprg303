@@ -30,7 +30,8 @@
     "react-native-svg": "^15.10.1",
     "react-native-web": "~0.19.10",
     "twrnc": "^4.6.0",
-    "victory-native": "^37.3.4"
+    "victory-native": "^37.3.4",
+    "expo-sqlite": "~15.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

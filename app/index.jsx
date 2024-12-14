@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState} from "react";
 import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet, Image, Pressable } from "react-native";
-import { Link, useNavigation } from "expo-router";
+import { Link } from "expo-router";
+
 
 const Index = () => {
 
