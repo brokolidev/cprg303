@@ -1,6 +1,6 @@
 import {SafeAreaView, ScrollView} from "react-native";
 
-export default function Tab() {
+export default function TabIndex() {
 	return (
 		<ScrollView>
 			<SafeAreaView>
