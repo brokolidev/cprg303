@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet, Image, Pressable } from "react-native";
 import { Link, useNavigation } from "expo-router";
-import { useRouter } from "expo-router";
 
 const Index = () => {
 
@@ -31,7 +30,7 @@ const Index = () => {
 
         {/* Avatar Selection Section */}
         <View style={styles.avatarContainer}>
-        <Text style={styles.avatarLabel}>Choose Avatar</Text>
+        <Text style={styles.inputLabel}>Choose Avatar</Text>
         <View style={styles.avatarList}>
             {["avatar1", "avatar2", "avatar3", "avatar4"].map((id, index) => (
             <TouchableOpacity key={id} onPress={() => selectAvatar(id)} style={styles.avatarWrapper}>
@@ -66,22 +65,24 @@ const Index = () => {
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    padding: 24,
+    paddingVertical: 60,
     backgroundColor: "#f9fafb",
   },
   section: {
     alignItems: "center",
+    marginHorizontal: "auto",
+    paddingHorizontal: 40,
   },
   title: {
-    fontSize: 24,
+    fontSize: 18,
     fontWeight: "600",
     color: "#4f46e5",
     textAlign: "center",
   },
   subtitle: {
     marginTop: 8,
-    fontSize: 20,
-    fontWeight: "500",
+    fontSize: 26,
+    fontWeight: "600",
     color: "#1f2937",
     textAlign: "center",
   },
@@ -91,7 +92,7 @@ const styles = StyleSheet.create({
   },
   inputLabel: {
     fontSize: 18,
-    fontWeight: "500",
+    fontWeight: "600",
     color: "#374151",
   },
   input: {
@@ -108,34 +109,34 @@ const styles = StyleSheet.create({
     marginTop: 32,
     width: "100%",
   },
-  avatarLabel: {
-    fontSize: 18,
-    fontWeight: "500",
-    color: "#374151",
-    marginBottom: 16,
-    textAlign: "center",
-  },
   avatarList: {
+    paddingHorizontal: 40,
+    marginTop: 24,
     flexDirection: "row",
+    flex: 1,
+    flexWrap: "wrap",
     justifyContent: "space-around",
-    alignItems: "center",
+    columnGap: '15%',
+    rowGap: 20,
   },
   avatar: {
-    width: 72,
-    height: 72,
-    borderRadius: 36,
-    borderWidth: 2,
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    borderWidth: 4,
     borderColor: "transparent",
   },
   activeAvatar: {
-    borderColor: "#4f46e5",
+    borderColor: "#6366f1",
   },
   button: {
-    marginTop: 32,
-    backgroundColor: "#2563eb",
-    paddingVertical: 12,
+    marginTop: 42,
+    backgroundColor: "#2363eb",
+    paddingVertical: 18,
     paddingHorizontal: 32,
     borderRadius: 16,
+    textAlign: "center",
+    width: "100%",
   },
   buttonText: {
     color: "#ffffff",
