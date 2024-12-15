@@ -1,7 +1,37 @@
-import React from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import { View, Text, Image, StyleSheet, ScrollView, FlatList } from 'react-native';
+import * as SQLite from "expo-sqlite";
+import {createTables} from "../db/db";
 
 const TabIndex = () => {
+
+	const [userName, setUserName] = useState('');
+
+	const avatarUrl = {
+		avatar1: "https://plus.unsplash.com/premium_photo-1731404830883-67fffdba8339?w=500&auto=format&fit=crop&q=60",
+		avatar2: "https://images.unsplash.com/photo-1615946027884-5b6623222bf4?w=500&auto=format&fit=crop&q=60",
+		avatar3: "https://plus.unsplash.com/premium_photo-1732333561909-a1643049dd4a?w=500&auto=format&fit=crop&q=60",
+		avatar4: "https://images.unsplash.com/photo-1558624232-75ee22af7e67?w=500&auto=format&fit=crop&q=60",
+	}
+
+	const [avatarImageUrl, setAvatarImageUrl] = useState(avatarUrl.avatar1);
+
+
+	const loadData = useCallback(async () => {
+		try {
+			const db = await SQLite.openDatabaseAsync('cprg303');
+			const firstRow = await db.getFirstAsync('SELECT * FROM UserPreferences');
+			setUserName(firstRow.userName);
+			setAvatarImageUrl(avatarUrl[firstRow.defaultAvatar]);
+		} catch (error) {
+			console.error(error)
+		}
+	}, [])
+
+	useEffect(() => {
+		loadData();
+	}, [loadData])
+
 	const upcomingItems = [
 		{
 			title: "CPRG303 Mobile Application Development",
@@ -30,12 +60,12 @@ const TabIndex = () => {
 			<View style={styles.profileContainer}>
 				<View style={styles.profile}>
 					<Image
-						source={{ uri: 'https://plus.unsplash.com/premium_photo-1731404830883-67fffdba8339?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YXZhdGFyJTIwY2hhcmFjdGVyfGVufDB8fDB8fHww' }}
+						source={{ uri: avatarImageUrl }}
 						style={styles.profileImage}
 					/>
 					<View style={styles.profileText}>
 						<Text style={styles.profileGreeting}>Good Morning,</Text>
-						<Text style={styles.profileName}>Michael Foster</Text>
+						<Text style={styles.profileName}>{userName}</Text>
 					</View>
 				</View>
 			</View>
