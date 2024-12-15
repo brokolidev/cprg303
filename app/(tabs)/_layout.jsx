@@ -1,7 +1,7 @@
 import * as Icons from "react-native-heroicons/solid";
 import {Tabs} from 'expo-router';
 
-export default function TabLayout() {
+const TabLayout = () => {
 	return (
 		<Tabs screenOptions={{
 			tabBarActiveTintColor: '#2363eb',
@@ -45,3 +45,5 @@ export default function TabLayout() {
 		</Tabs>
 	);
 }
+
+export { TabLayout };

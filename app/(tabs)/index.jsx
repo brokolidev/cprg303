@@ -54,6 +54,7 @@ const TabIndex = () => {
 							</View>
 						</View>
 					)}
+					scrollEnabled={false} // FlatList 스크롤 비활성화
 				/>
 			</View>
 		</ScrollView>
