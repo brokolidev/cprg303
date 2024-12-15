@@ -1,16 +1,58 @@
-import React, { useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet, Image, Pressable } from "react-native";
 import { Link } from "expo-router";
-
+import * as SQLite from 'expo-sqlite';
+import {createTables} from "./db/db";
 
 const Index = () => {
 
   const [activeAvatar, setActiveAvatar] = useState("avatar1");
   const [userName, setUserName] = useState("");
+  const [prefId, setPrefId] = useState("");
+  const [db, setDb] = useState(null);
 
-  const selectAvatar = (id) => {
+  const selectAvatar = async (id) => {
     setActiveAvatar(id);
+    try {
+      // save set avatar to db
+      await db.runAsync('UPDATE UserPreferences SET defaultAvatar = ? WHERE id = ?', id, prefId);
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  const saveUserName = async (userName) => {
+    setUserName(userName);
+    console.log('new user name : ', userName);
+    if(userName == '') {
+      userName = 'John';
+    }
+    try {
+      await db.runAsync('UPDATE UserPreferences SET userName = ? WHERE id = ?', userName, prefId);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const loadData = useCallback(async () => {
+    try {
+      const db = await SQLite.openDatabaseAsync('cprg303');
+      setDb(db);
+      await createTables(db);
+      const firstRow = await db.getFirstAsync('SELECT * FROM UserPreferences');
+      setUserName(firstRow.userName);
+      setActiveAvatar(firstRow.defaultAvatar);
+      setPrefId(firstRow.id)
+    } catch (error) {
+      console.error(error)
+    }
+  }, [])
+
+  useEffect(() => {
+    loadData()
+  }, [loadData])
+
+
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -24,8 +66,8 @@ const Index = () => {
         <TextInput
             style={styles.input}
             placeholder="Type your name here"
+            onChangeText={(text) => saveUserName(text)}
             value={userName}
-            onChangeText={setUserName}
         />
         </View>
 
