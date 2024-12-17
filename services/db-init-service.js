@@ -27,6 +27,7 @@ export const createTables = async (db) => {
 	    end	TEXT NOT NULL,
         title TEXT NOT NULL,
 	    description	TEXT,
+        imgSrc TEXT,
 	    PRIMARY KEY("id" AUTOINCREMENT)
     )
     `
