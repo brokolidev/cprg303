@@ -11,6 +11,7 @@ const Layout = () => {
             options={{
                 title: 'Add New Event',
                 presentation: 'modal',
+                gestureEnabled: true,
                 headerShown: true,
                 headerTitleAlign: 'center'
             }} />

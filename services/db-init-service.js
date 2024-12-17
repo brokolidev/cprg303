@@ -1,7 +1,11 @@
 import {SQLiteDatabase} from "expo-sqlite";
 
-export const createTables = async (db: SQLiteDatabase) => {
-	const dropQuery = `DROP TABLE IF EXISTS UserPreferences`
+/**
+ * Creates the tables for the application
+ * 
+ * @param {SQLiteDatabase} db 
+ */
+export const createTables = async (db) => {
 
 	const userPreferencesQuery = `
     CREATE TABLE IF NOT EXISTS UserPreferences (
@@ -10,22 +14,40 @@ export const createTables = async (db: SQLiteDatabase) => {
         defaultAvatar TEXT,
         PRIMARY KEY(id)
     )
-  `
+    `
+
 	const insertDefaultQuery = `
 	INSERT INTO UserPreferences (userName, defaultAvatar) values ('John', 'avatar3')
 	`
-	try {
-		// await db.execAsync(dropQuery);
-		await db.execAsync(userPreferencesQuery);
 
+    const mslEventQuery = `
+    CREATE TABLE IF NOT EXISTS mslEvent (
+	    id	INTEGER,
+	    start	TEXT NOT NULL,
+	    end	TEXT NOT NULL,
+        title TEXT NOT NULL,
+	    description	TEXT,
+	    PRIMARY KEY("id" AUTOINCREMENT)
+    )
+    `
+
+	try {
+
+        //Initialize the database with the tables needed
+		await db.execAsync(userPreferencesQuery);
+        await db.execAsync(mslEventQuery);
+
+        //get the default preferences to show the user
 		const defaultPref = await db.getFirstAsync('SELECT * FROM UserPreferences');
 
+        //insert default preferences if none were found.
 		if(defaultPref === null) {
 			// insert default data
 			await db.execAsync(insertDefaultQuery);
 		} else {
 			console.log('default profile', defaultPref);
 		}
+        
 	} catch (error) {
 		console.error(error);
 		throw Error(`Failed to create tables`);

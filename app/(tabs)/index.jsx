@@ -1,11 +1,12 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import { View, Text, Image, StyleSheet, ScrollView, FlatList } from 'react-native';
 import * as SQLite from "expo-sqlite";
-import {createTables} from "../db/db";
+import { getEvents } from '../../services/event-service';
 
 const TabIndex = () => {
 
 	const [userName, setUserName] = useState('');
+    const [events, setEvents] = useState([])
 
 	const avatarUrl = {
 		avatar1: "https://plus.unsplash.com/premium_photo-1731404830883-67fffdba8339?w=500&auto=format&fit=crop&q=60",
@@ -16,6 +17,16 @@ const TabIndex = () => {
 
 	const [avatarImageUrl, setAvatarImageUrl] = useState(avatarUrl.avatar1);
 
+    const loadEvents = useCallback(async () => {
+        //load in the events
+        const response = (await getEvents() ?? [])
+        
+        setEvents(response.sort((a, b) => a.start - b.start));
+    })
+
+    useEffect(() => {
+        loadEvents();
+    }, [loadEvents])
 
 	const loadData = useCallback(async () => {
 		try {
@@ -73,13 +84,17 @@ const TabIndex = () => {
 			<View style={styles.upcomingContainer}>
 				<Text style={styles.upcomingTitle}>What's Up Next</Text>
 				<FlatList
-					data={upcomingItems}
+					data={events}
 					keyExtractor={(item, index) => index.toString()}
 					renderItem={({ item }) => (
 						<View style={styles.upcomingItem}>
-							<Image source={{ uri: item.imgSrc }} style={styles.upcomingImage} />
 							<View style={styles.upcomingTextContainer}>
-								<Text style={styles.upcomingDate}>{item.date}</Text>
+								<Text style={styles.upcomingDate}>
+                                    {new Date(item.start).toLocaleDateString()}&nbsp;
+                                    {new Date(item.start).toLocaleTimeString()}&nbsp;-&nbsp;
+                                    {new Date(item.end).toLocaleDateString()}&nbsp;
+                                    {new Date(item.end).toLocaleTimeString()}
+                                    </Text>
 								<Text style={styles.upcomingTitleText}>{item.title}</Text>
 							</View>
 						</View>

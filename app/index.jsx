@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useState} from "react";
 import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet, Image, Pressable } from "react-native";
 import { Link } from "expo-router";
 import * as SQLite from 'expo-sqlite';
-import {createTables} from "./db/db";
+import { createTables } from "../services/db-init-service";
 
 const Index = () => {
 
