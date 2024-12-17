@@ -1,7 +1,6 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import { View, Text, Image, StyleSheet, ScrollView, FlatList } from 'react-native';
 import * as SQLite from "expo-sqlite";
-import {createTables} from "../db/db";
 
 const TabIndex = () => {
 

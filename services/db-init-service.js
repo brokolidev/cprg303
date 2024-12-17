@@ -1,48 +1,55 @@
-import * as SQLite from 'expo-sqlite';
-import * as FileSystem from 'expo-file-system'
+import {SQLiteDatabase} from "expo-sqlite";
 
-const dbInitDir = 'database/schema.sql'
+/**
+ * Creates the tables for the application
+ * 
+ * @param {SQLiteDatabase} db 
+ */
+export const createTables = async (db) => {
 
-const openDb = () => SQLite.openDatabaseAsync('MSL_db.db')
+	const userPreferencesQuery = `
+    CREATE TABLE IF NOT EXISTS UserPreferences (
+        id INTEGER DEFAULT 1,
+        userName TEXT,
+        defaultAvatar TEXT,
+        PRIMARY KEY(id)
+    )
+    `
 
-export const initDB = () => {
-    //first, load in the sql file,
-    return loadSQL()
-        .then(sql => {
-            if (sql != "") {
-                //sql's good, send it off to the db to be initialized.
-                return sql
-            } else {
-                const msg = "ERROR: invalid sql, unable to init db"
-                console.error(msg)
-                throw new Error(msg)
-            }
-        })
-        .then(sql => {
-            //making the call to the db to open. done asyncronously to prevent blocking of the main thread.
-            return openDb()
-                .then(db => {
-                    //wrapping the query in a transaction
-                    return db.withTransactionAsync(() => {
-                        //attempt to initialize the db. this will ensure the database is loaded with the correct tables.
-                        return db.execAsync(sql)
-                            .then(_ => {
-                                return true
-                            })
-                    })
-                })
-        })
-        .catch(err => {
-            const msg = "ERROR: initDB: " + err
-            console.error(msg)
-            throw new Error(msg)
-        })
-}
+	const insertDefaultQuery = `
+	INSERT INTO UserPreferences (userName, defaultAvatar) values ('John', 'avatar3')
+	`
 
-const loadSQL = () => {
-    return FileSystem.readAsStringAsync(FileSystem.documentDirectory + dbInitDir)
-        .catch(err => {
-            console.error("ERROR: loadSQL: an error occurred while trying to load the SQL file: "
-                + err)
-        })
+    const mslEventQuery = `
+    CREATE TABLE IF NOT EXISTS mslEvent (
+	    id	INTEGER,
+	    start	TEXT NOT NULL,
+	    end	TEXT NOT NULL,
+        title TEXT NOT NULL,
+	    description	TEXT,
+	    PRIMARY KEY("id" AUTOINCREMENT)
+    )
+    `
+
+	try {
+
+        //Initialize the database with the tables needed
+		await db.execAsync(userPreferencesQuery);
+        await db.execAsync(mslEventQuery);
+
+        //get the default preferences to show the user
+		const defaultPref = await db.getFirstAsync('SELECT * FROM UserPreferences');
+
+        //insert default preferences if none were found.
+		if(defaultPref === null) {
+			// insert default data
+			await db.execAsync(insertDefaultQuery);
+		} else {
+			console.log('default profile', defaultPref);
+		}
+        
+	} catch (error) {
+		console.error(error);
+		throw Error(`Failed to create tables`);
+	}
 }
