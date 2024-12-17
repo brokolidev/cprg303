@@ -68,13 +68,34 @@ const Calendar = () => {
         });
     }
 
+    const refreshPage = () => {
+        setEvents(null);
+        
+        getEvents()
+        .then(response => {
+                console.log(response.length, response);
+                //clear out the events
+            
+                //add the new events, triggering the full rerender.
+                setEvents((response ?? []));
+                console.log(events)
+                
+                //finally, trigger the page refresh
+                setRerender(prev => !prev);
+            })
+    }
+
     useEffect(() => {
         //this stops lots of fetches, but there still will be a few.
-        if (events.length <= 0) {
+        if (events == null) {
             console.log("fetching events...")
             getEvents()
                 .then(response => {
                     console.log(response.length, response);
+                    //clear out the events
+                    setEvents(null);
+
+                    //add the new events, triggering the full rerender.
                     setEvents((response ?? []));
                     console.log(events)
                 })
@@ -86,7 +107,7 @@ const Calendar = () => {
             <View className=" flex flex-row justify-between  border-b border-gray-600">
                 <View className='w-20'></View>
                 <Text className="text-center font-bold pt-5 text-xl">Calendar View</Text>
-                <Button title='refresh' onPress={() => setRerender(prev => !prev)}></Button>
+                <Button title='refresh' onPress={() => refreshPage()}></Button>
             </View>
 
             {/* The calendar */}

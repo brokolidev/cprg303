@@ -118,7 +118,19 @@ const AddNewEvent = () => {
         endStripped.setMilliseconds(0);
 
         //ensure the minutes are either 0 or 30
-        startStripped.setMinutes(start.getMinutes() <= start.getMinutes() - 30 ? 0 : 30)
+        const startMinutes = startStripped.getMinutes() < 15 ? 0 : startStripped.getMinutes() < 45 ? 30 : 0;
+        const endMinutes = endStripped.getMinutes() < 15 ? 0 : endStripped.getMinutes() < 45 ? 30 : 0;
+
+        if (startMinutes == 0 && startStripped.getMinutes() >= 45) {
+            startStripped.setHours(startStripped.getHours() + 1);
+        }
+
+        if (endMinutes == 0 && endStripped.getMinutes >= 45) {
+            endStripped.setHours(endStripped.getHours() + 1);
+        }
+
+        startStripped.setMinutes(startMinutes);
+        endStripped.setMinutes(endMinutes);
 
         //ensure there is a valid title
         if (!title) {
