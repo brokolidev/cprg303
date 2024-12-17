@@ -1,6 +1,6 @@
 "use client"
 
-import { View, Text, ScrollView, Pressable, StyleSheet, SafeAreaView } from 'react-native'
+import { View, Text, ScrollView, Pressable, StyleSheet, SafeAreaView, Button } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { PlusIcon } from 'react-native-heroicons/solid'
 import { router } from 'expo-router/build'
@@ -15,7 +15,8 @@ const Calendar = () => {
 
     const [scrollTimeout, setScrollTimeout] = useState(null);
     const [showAddBtn, setShowAddBtn] = useState(true);
-    const [events, setEvents] = useState([]);
+    const [events, setEvents] = useState(null);
+    const [rerender, setRerender] = useState(false); //this will force a rerender, allowing the calendar to display new entries
 
     const handleScroll = () => {
 
@@ -69,20 +70,23 @@ const Calendar = () => {
 
     useEffect(() => {
         //this stops lots of fetches, but there still will be a few.
-        if (events.length == 0 || showAddBtn) {
+        if (events.length <= 0) {
             console.log("fetching events...")
             getEvents()
                 .then(response => {
+                    console.log(response.length, response);
                     setEvents((response ?? []));
-                    console.log(events.length);
+                    console.log(events)
                 })
         }
     }, [showAddBtn])
 
     return (
-        <SafeAreaView className="flex-1">
-            <View>
-                <Text className="text-center font-bold pt-5 text-xl border-b border-gray-600">Calendar View</Text>
+        <SafeAreaView className="flex-1" key={rerender ? 0 : 1}>
+            <View className=" flex flex-row justify-between  border-b border-gray-600">
+                <View className='w-20'></View>
+                <Text className="text-center font-bold pt-5 text-xl">Calendar View</Text>
+                <Button title='refresh' onPress={() => setRerender(prev => !prev)}></Button>
             </View>
 
             {/* The calendar */}
@@ -105,7 +109,7 @@ const Calendar = () => {
                     <ScrollView onScroll={handleScroll} scrollEventThrottle={100}>
 
                         {
-                            events.length > 0
+                            events != null
                             ? (
                                 hours.map((hour, index) => (
                                     <View className="border-b border-gray-200 flex-row" key={index}>

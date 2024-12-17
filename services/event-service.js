@@ -24,6 +24,7 @@ export const getEvents = () => {
                             end: new Date(event.end),
                             title: event.title,
                             description: event.description,
+                            imgSrc: event.imgSrc
                         })
                     })
 
@@ -39,8 +40,8 @@ export const getEvents = () => {
 
 export const addEvent = (event) => {
     const queryString = `
-    INSERT INTO mslEvent (start, end, title, description)
-    VALUES ('${event.start}', '${event.end}', '${event.title}', '${event.description}')
+    INSERT INTO mslEvent (start, end, title, imgSrc, description)
+    VALUES ('${event.start}', '${event.end}', '${event.title}', '${event.imgSrc}', '${event.description}')
     `
 
     //start up the db.

@@ -126,11 +126,18 @@ const AddNewEvent = () => {
             return;
         }
 
+
+        //get a random picture
+        const randomSeed = (Math.random() * 100).toString().replaceAll(".", "");
+
+        const eventImage = `https://picsum.photos/seed/${randomSeed}/200/300`
+
         //add the new event to the database
         addEvent({
             start: startStripped,
             end: endStripped,
             title: title,
+            imgSrc: eventImage,
             description: description,
         })
             .then(response => {

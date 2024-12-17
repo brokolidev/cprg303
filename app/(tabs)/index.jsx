@@ -43,29 +43,6 @@ const TabIndex = () => {
 		loadData();
 	}, [loadData])
 
-	const upcomingItems = [
-		{
-			title: "CPRG303 Mobile Application Development",
-			date: "Thursday, August 29, 2024 / 3 hours",
-			imgSrc: "https://cdn.sanity.io/images/ssqh4ksj/production/c734dd394de943820a25b4b96eace0855ab44749-2016x1344.png?w=1170&h=780&auto=format",
-		},
-		{
-			title: "CPRG307 Web Application Development",
-			date: "Thursday, August 29, 2024 / 3 hours",
-			imgSrc: "https://cdn.sanity.io/images/ssqh4ksj/production/c734dd394de943820a25b4b96eace0855ab44749-2016x1344.png?w=1170&h=780&auto=format",
-		},
-		{
-			title: "CPRG307 Web Application Development",
-			date: "Thursday, August 29, 2024 / 3 hours",
-			imgSrc: "https://cdn.sanity.io/images/ssqh4ksj/production/c734dd394de943820a25b4b96eace0855ab44749-2016x1344.png?w=1170&h=780&auto=format",
-		},
-		{
-			title: "CPRG307 Web Application Development",
-			date: "Thursday, August 29, 2024 / 3 hours",
-			imgSrc: "https://cdn.sanity.io/images/ssqh4ksj/production/c734dd394de943820a25b4b96eace0855ab44749-2016x1344.png?w=1170&h=780&auto=format",
-		},
-	];
-
 	return (
 		<ScrollView style={styles.container}>
 			<View style={styles.profileContainer}>
@@ -89,6 +66,7 @@ const TabIndex = () => {
 					renderItem={({ item }) => (
 						<View style={styles.upcomingItem}>
 							<View style={styles.upcomingTextContainer}>
+                                <Image source={{ uri: item.imgSrc }} style={styles.upcomingImage} />
 								<Text style={styles.upcomingDate}>
                                     {new Date(item.start).toLocaleDateString()}&nbsp;
                                     {new Date(item.start).toLocaleTimeString()}&nbsp;-&nbsp;
